@@ -21,6 +21,8 @@ func main() {
 		fmt.Fprintf(os.Stderr, "int expected as second argument, got: %v\n", arguments[1])
 		os.Exit(1)
 	}
+	// there will be a separator in the end:
+	pathLength--
 	usr, usrErr := user.Current()
 	if usrErr != nil {
 		fmt.Fprintf(os.Stderr, "failed to obtain current user: %v\n", usrErr)
@@ -29,24 +31,14 @@ func main() {
 	var homeDir = usr.HomeDir
 
 	var inputPath = "~" + strings.TrimPrefix(arguments[0], homeDir)
-
-	if len(inputPath) <= pathLength {
-		fmt.Println(inputPath)
-		os.Exit(0)
-	}
 	var pathElements = strings.Split(inputPath, "/")
-	if len(pathElements) == 1 {
-		fmt.Println(inputPath)
-		os.Exit(0)
-	}
-
 	var totalLength = len(pathElements) - 1
 	for _, element := range pathElements {
 		totalLength += len(element)
 	}
 
 	var b strings.Builder
-	b.Grow(totalLength)
+	b.Grow(pathLength)
 	for index, element := range pathElements {
 		if index > 0 {
 			b.WriteString("/")
@@ -67,5 +59,16 @@ func main() {
 			b.WriteString(element)
 		}
 	}
+	// fill the rest with spaces if needed:
+	for b.Len() < pathLength {
+		b.WriteByte(' ')
+	}
+	var result = b.String()
+	// trim if longer:
+	var overflow = b.Len() - pathLength
+	if overflow > 0 {
+		result = "…" + b.String()[overflow+1:len(result)] + "⠿"
+	}
+	b.WriteString("⠿")
 	fmt.Println(b.String())
 }
