@@ -280,7 +280,7 @@ live_config_reload: true
 #  args:
 #    - --login
 shell:
-  program: $HOME/.config/alacritty/tmux.sh
+  program: $HOME/.config/alacritty/tmux # alacritty does not start if this is .sh file
 # Key bindings
 #
 # Key bindings are specified as a list of objects. Each binding will specify
