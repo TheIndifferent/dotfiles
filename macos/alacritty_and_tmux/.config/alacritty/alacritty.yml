@@ -468,18 +468,18 @@ key_bindings:
   - { key: F12,      mods: Command, chars: "\x1b[24;3~"                  }
   - { key: NumpadEnter,             chars: "\n"                          }
 
-  - { key: T,       mods: Command, chars: "\x02\x63" } # tmux new window
-  - { key: W,       mods: Command, chars: "\x02\x26" } # tmux kill window
-  - { key: R,       mods: Command, chars: "\x02\x2c" } # tmux rename window
-  - { key: L,       mods: Command, chars: "\x02\x77" } # tmux list windows
-  - { key: Right,   mods: Command, chars: "\x02\x6e" } # tmux next window
-  - { key: Left,    mods: Command, chars: "\x02\x70" } # tmux previous window
-  - { key: 1,       mods: Command, chars: "\x02\x31" } # tmux window 1
-  - { key: 2,       mods: Command, chars: "\x02\x32" } # tmux window 2
-  - { key: 3,       mods: Command, chars: "\x02\x33" } # tmux window 3
-  - { key: 4,       mods: Command, chars: "\x02\x34" } # tmux window 4
-  - { key: 5,       mods: Command, chars: "\x02\x35" } # tmux window 5
-  - { key: 6,       mods: Command, chars: "\x02\x36" } # tmux window 6
-  - { key: 7,       mods: Command, chars: "\x02\x37" } # tmux window 7
-  - { key: 8,       mods: Command, chars: "\x02\x38" } # tmux window 8
-  - { key: 9,       mods: Command, chars: "\x02\x39" } # tmux window 9
+  - { key: T,       mods: Command, chars: "\x02c" } # tmux new window
+  - { key: W,       mods: Command, chars: "\x02&" } # tmux kill window
+  - { key: R,       mods: Command, chars: "\x02," } # tmux rename window
+  - { key: L,       mods: Command, chars: "\x02w" } # tmux list windows
+  - { key: Right,   mods: Command, chars: "\x02n" } # tmux next window
+  - { key: Left,    mods: Command, chars: "\x02p" } # tmux previous window
+  - { key: Key1,       mods: Command, chars: "\x021" } # tmux window 1
+  - { key: Key2,       mods: Command, chars: "\x022" } # tmux window 2
+  - { key: Key3,       mods: Command, chars: "\x023" } # tmux window 3
+  - { key: Key4,       mods: Command, chars: "\x024" } # tmux window 4
+  - { key: Key5,       mods: Command, chars: "\x025" } # tmux window 5
+  - { key: Key6,       mods: Command, chars: "\x026" } # tmux window 6
+  - { key: Key7,       mods: Command, chars: "\x027" } # tmux window 7
+  - { key: Key8,       mods: Command, chars: "\x028" } # tmux window 8
+  - { key: Key9,       mods: Command, chars: "\x029" } # tmux window 9
