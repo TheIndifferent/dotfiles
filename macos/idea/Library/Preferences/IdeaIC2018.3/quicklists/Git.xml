@@ -1,0 +1,13 @@
+<list display="Git">
+  <action id="CheckinProject" />
+  <action id="CheckinFiles" />
+  <action id="ChangesView.Revert" />
+  <action id="QuickList.$Separator$" />
+  <action id="Git.Branches" />
+  <action id="Git.Rebase" />
+  <action id="QuickList.$Separator$" />
+  <action id="Git.Configure.Remotes" />
+  <action id="Git.Fetch" />
+  <action id="Git.Pull" />
+  <action id="Vcs.Push" />
+</list>
