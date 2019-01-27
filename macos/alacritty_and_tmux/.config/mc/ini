@@ -1,0 +1,23 @@
+[Midnight-Commander]
+verbose=true
+editor_tab_spacing=4
+skin=solarized-dark
+
+[Layout]
+message_visible=0
+keybar_visible=0
+xterm_title=1
+output_lines=0
+command_prompt=1
+menubar_visible=1
+free_space=1
+horizontal_split=0
+vertical_equal=1
+horizontal_equal=1
+top_panel_size=1
+
+[Misc]
+timeformat_recent=%b %e %H:%M
+timeformat_old=%b %e  %Y
+display_codepage=UTF-8
+source_codepage=UTF-8
