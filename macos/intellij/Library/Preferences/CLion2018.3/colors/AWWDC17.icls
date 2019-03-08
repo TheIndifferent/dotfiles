@@ -3,14 +3,14 @@
     <property name="created">2019-02-26T11:01:01</property>
     <property name="ide">CLion</property>
     <property name="ideVersion">2018.3.4.0.0</property>
-    <property name="modified">2019-03-02T18:44:32</property>
+    <property name="modified">2019-03-04T10:03:52</property>
     <property name="originalScheme">Darcula copy</property>
   </metaInfo>
   <colors>
     <option name="ADDED_LINES_COLOR" value="80bf9b" />
     <option name="CARET_COLOR" value="ff6464" />
     <option name="CARET_ROW_COLOR" value="41484d" />
-    <option name="CONSOLE_BACKGROUND_KEY" value="27282d" />
+    <option name="CONSOLE_BACKGROUND_KEY" value="394045" />
     <option name="DELETED_LINES_COLOR" value="fd978a" />
     <option name="DOCUMENTATION_COLOR" value="" />
     <option name="FOLDED_TEXT_BORDER_COLOR" value="" />
