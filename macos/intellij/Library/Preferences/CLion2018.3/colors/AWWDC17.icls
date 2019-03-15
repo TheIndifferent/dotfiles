@@ -3,7 +3,7 @@
     <property name="created">2019-02-26T11:01:01</property>
     <property name="ide">CLion</property>
     <property name="ideVersion">2018.3.4.0.0</property>
-    <property name="modified">2019-03-04T10:03:52</property>
+    <property name="modified">2019-03-15T20:55:06</property>
     <property name="originalScheme">Darcula copy</property>
   </metaInfo>
   <colors>
@@ -297,6 +297,7 @@
     </option>
     <option name="NOT_USED_ELEMENT_ATTRIBUTES">
       <value>
+        <option name="EFFECT_COLOR" value="978afd" />
         <option name="EFFECT_TYPE" value="2" />
       </value>
     </option>
