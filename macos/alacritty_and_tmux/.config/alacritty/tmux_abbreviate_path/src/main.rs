@@ -1,158 +1,102 @@
-use std::{env, process, fmt, error};
-use std::env::{args, Args};
-use std::path::{Path, PathBuf, StripPrefixError};
+use std::env::{Args, args};
+use std::error::Error;
+use std::process;
+use std::path::{PathBuf, Path};
 use std::str::Chars;
-use std::num::ParseIntError;
-
-struct PathAndLength {
-    path: PathBuf,
-    length: usize,
-}
-
-#[derive(Debug)]
-enum Errors {
-    InvalidNumberOfArgumentsError(usize),
-    CausedByIntParsing(std::num::ParseIntError),
-    CausedByStripPrefix(std::path::StripPrefixError)
-}
-
-impl fmt::Display for Errors {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match *self {
-            Errors::InvalidNumberOfArgumentsError(num) => write!(f, "Exactly 2 argument are expected, got: {}", num),
-            Errors::CausedByIntParsing(ref err) => write!(f, "{}", err),
-            Errors::CausedByStripPrefix(ref err) => write!(f, "{}", err)
-        }
-    }
-}
-
-impl error::Error for Errors {}
-
-impl From<std::path::StripPrefixError> for Errors {
-    fn from(err: StripPrefixError) -> Self {
-        Errors::CausedByStripPrefix(err);
-    }
-}
-
-impl From<std::num::ParseIntError> for Errors {
-    fn from(err: ParseIntError) -> Self {
-        Errors::CausedByIntParsing(err);
-    }
-}
-
-fn parseArgs() -> Result<PathAndLength, Errors> {
-    let mut args: Args = args();
-    if args.len() != 3 {
-        return Err(Errors::InvalidNumberOfArgumentsError(args.len()));
-    }
-    // skipping application binary:
-    args.next();
-    match args.next() {
-        None => return Err(Errors::InvalidNumberOfArgumentsError(1)),
-        Some(pathArg) => {
-            match args.next() {
-                None => return Err(Errors::InvalidNumberOfArgumentsError(2)),
-                Some(lenStr) => {
-                    return usize::from_str_radix(lenStr.as_str(), 10)
-//                        .map_err(|e| Errors::ArgumentNumberParsingError(e))
-                        .map(|len| PathAndLength {
-                            path: PathBuf::from(pathArg),
-                            length: len
-                        })
-                }
-            }
-        }
-    }
-}
-
-fn totalLength(path: PathBuf) -> usize {
-    let mut totalLength: usize = 0;
-    for elem in path.iter() {
-        println!("3: {}", elem.to_str().expect("expected!"));
-        totalLength += 1;
-        totalLength += elem.len();
-    }
-    return totalLength;
-}
 
 fn main() {
-    parseArgs()
-        .and_then(|pnl|
-            match dirs::home_dir() {
-                None => {
-                    return Ok(pnl);
-                }
-                Some(home_dir) => {
-                    if pnl.path.starts_with(home_dir) {
-                        let strippedHome: PathBuf = pnl.path.strip_prefix(home_dir)?.to_path_buf();
-                        println!("1: {}", strippedHome.to_str().expect("expected!"));
-                        let tildaPath: PathBuf = PathBuf::from("~").join(strippedHome);
-                        println!("2: {}", tildaPath.to_str().expect("expected!"));
-                        return Ok(PathAndLength {
-                            path: tildaPath,
-                            length: pnl.length,
-                        })
-                    } else {
-                        return Ok(pnl);
-                    }
-                }
-            })
-        .map(|pnl| {
-            // there will be a separator in the end:
-            let pathLength: usize = pnl.length - 1;
-            let mut totalLength: usize = totalLength(pnl.path);
-            let mut path: String = String::with_capacity(pnl.length);
-            let mut index: usize = 0;
-            for elem in pnl.path.iter() {
-                println!("4: {}", path);
+    let mut args: Args = args();
+    if args.len() != 3 {
+        eprintln!("Exactly 2 argument are expected, got: {}", args.len());
+        process::exit(1);
+    }
+    let input_path: String = args.nth(1).unwrap();
+    // .nth() is scrolling, so next one will be 0 again:
+    let target_length: String = args.nth(0).unwrap();
+    let abbreviate_res = abbreviate_to_length(input_path, target_length);
+    match abbreviate_res {
+        Ok(abbrv) => println!("{}", abbrv),
+        Err(err) => eprintln!("Failure: {}", err)
+    }
+}
+
+fn abbreviate_to_length(input_path_str: String, input_length: String) -> Result<String, Box<dyn Error>> {
+    // there will be a separator in the end:
+    let target_length: usize = usize::from_str_radix(input_length.as_str(), 10)? - 1;
+    let input_path: PathBuf = PathBuf::from(input_path_str);
+    let user_home: PathBuf = match dirs::home_dir() {
+        Some(h) => h,
+        None => PathBuf::new()
+    };
+    let path_from_home = if input_path.starts_with(user_home.as_path()) {
+        let path_stripped_home: PathBuf = input_path.strip_prefix(user_home)?.to_path_buf();
+        let path_tilda: PathBuf = PathBuf::from("~").join(path_stripped_home);
+        path_tilda
+    } else {
+        input_path.to_path_buf()
+    };
+    let mut total_length: usize = total_length(path_from_home.as_path());
+    let mut path: String = String::with_capacity(target_length * 2);
+    let mut index: usize = 0;
+    for elem in path_from_home.iter() {
+        // might be empty string?
+        match elem.to_str() {
+            None => {
+                index += 1;
+            }
+            Some(e) => {
                 if index > 0 {
                     path.push('/');
                 }
-                // might be empty string?
-                match elem.to_str() {
-                    None => continue,
-                    Some(e) => {
-                        if totalLength > pathLength {
-                            // have to abbreviate:
-                            let mut chars: Chars = e.chars();
-                            match chars.next() {
-                                None => continue,
-                                Some(c) => {
-                                    path.push(c);
-                                    // reduce total length by the element length:
-                                    totalLength -= e.len();
-                                    // add single char back:
-                                    totalLength += 1;
-                                    if c == '.' {
-                                        // need a second char if we had a '.':
-                                        match chars.next() {
-                                            None => continue,
-                                            Some(c2) => {
-                                                path.push(c2);
-                                                totalLength += 1;
-                                            }
-                                        }
+                index += 1;
+                if total_length > target_length {
+                    // have to abbreviate:
+                    let mut chars: Chars = e.chars();
+                    match chars.next() {
+                        None => continue,
+                        Some(c) => {
+                            path.push(c);
+                            // reduce total length by the element length:
+                            total_length -= e.len();
+                            // add single char back:
+                            total_length += 1;
+                            if c == '.' {
+                                // need a second char if we had a '.':
+                                match chars.next() {
+                                    None => continue,
+                                    Some(c2) => {
+                                        path.push(c2);
+                                        total_length += 1;
                                     }
                                 }
                             }
-                        } else {
-                            // enough space, no need to abbreviate:
-                            path.push_str(e);
                         }
                     }
+                } else {
+                    // enough space, no need to abbreviate:
+                    path.push_str(e);
                 }
             }
-            // fill the rest with spaces if needed:
-            while path.len() < pathLength {
-                path.push(' ');
-            }
-            // trim if longer:
-            // TODO this seems to be highly inefficient:
-            while path.len() > pathLength {
-                path.remove(0);
-            }
-            path.push('⠿');
-            println!("{}", path);
         }
-        );
+    }
+    // fill the rest with spaces if needed:
+    while path.len() < target_length {
+        path.push(' ');
+    }
+    // trim if longer:
+    // TODO this seems to be highly inefficient:
+    while path.len() > target_length {
+        path.remove(0);
+    }
+    path.push('⠿');
+    return Ok(path);
+}
+
+fn total_length(path: &Path) -> usize {
+    let mut total_length: usize = 0;
+    for elem in path.iter() {
+        total_length += 1;
+        total_length += elem.len();
+    }
+    return total_length;
 }
