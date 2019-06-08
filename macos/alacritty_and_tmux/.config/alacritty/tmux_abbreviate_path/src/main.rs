@@ -35,7 +35,7 @@ fn abbreviate_to_length(input_path_str: String, input_length: String) -> Result<
     } else {
         input_path.to_path_buf()
     };
-    let mut total_length: usize = total_length(path_from_home.as_path());
+    let (count, mut total_length) = count_and_total_length(path_from_home.as_path());
     let mut path: String = String::with_capacity(target_length * 2);
     let mut index: usize = 0;
     for elem in path_from_home.iter() {
@@ -49,7 +49,10 @@ fn abbreviate_to_length(input_path_str: String, input_length: String) -> Result<
                     path.push('/');
                 }
                 index += 1;
-                if total_length > target_length {
+                // do not abbreviate last element:
+                if index == count {
+                    path.push_str(e);
+                } else if total_length > target_length {
                     // have to abbreviate:
                     let mut chars: Chars = e.chars();
                     match chars.next() {
@@ -79,24 +82,27 @@ fn abbreviate_to_length(input_path_str: String, input_length: String) -> Result<
             }
         }
     }
+    // trim if longer:
+    if path.len() > target_length {
+        let overflow: usize = path.len() - target_length + 1;
+        path.drain(..overflow);
+        path.insert(0, '…');
+    }
     // fill the rest with spaces if needed:
     while path.len() < target_length {
         path.push(' ');
-    }
-    // trim if longer:
-    // TODO this seems to be highly inefficient:
-    while path.len() > target_length {
-        path.remove(0);
     }
     path.push('⠿');
     return Ok(path);
 }
 
-fn total_length(path: &Path) -> usize {
+fn count_and_total_length(path: &Path) -> (usize, usize) {
+    let mut count: usize = 0;
     let mut total_length: usize = 0;
     for elem in path.iter() {
+        count += 1;
         total_length += 1;
         total_length += elem.len();
     }
-    return total_length;
+    return (count, total_length);
 }
