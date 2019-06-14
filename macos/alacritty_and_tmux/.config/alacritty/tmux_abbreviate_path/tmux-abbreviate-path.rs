@@ -45,7 +45,7 @@ fn abbreviate_to_length(input_path_str: String, input_length: String) -> Result<
                 index += 1;
             }
             Some(e) => {
-                if index > 0 {
+                if index > 0 && path.as_str() != "/" {
                     path.push('/');
                 }
                 index += 1;
