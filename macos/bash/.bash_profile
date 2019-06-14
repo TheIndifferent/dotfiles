@@ -7,7 +7,7 @@ export HISTFILESIZE=1048576
 export EDITOR=micro
 #export EDITOR=nano
 
-# TODO check if the date and currency formatting is ok:
+# TODO does not really work as expected any way:
 export LC_CTYPE='en_GB.UTF-8'
 export LC_MESSAGES='en_GB.UTF-8'
 export LANG='en_GB.UTF-8'
@@ -23,7 +23,9 @@ export GOPATH="$HOME/dev/go"
 # useful with tmux or single-user workstation:
 #export PS1='\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]\w❯ \[\033[0m\]'
 # don't print current dir if tmux already has it:
-export PS1='\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
+#export PS1='\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
+# set "title" to current cwd:
+export PS1='\[\033]0;\w\007\]\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
 
 # add ~/bin and cargo to PATH:
 export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/bin/google-cloud-sdk/bin:$PATH"
