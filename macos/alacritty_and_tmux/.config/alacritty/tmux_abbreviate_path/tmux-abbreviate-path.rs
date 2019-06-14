@@ -45,10 +45,15 @@ fn abbreviate_to_length(input_path_str: String, input_length: String) -> Result<
                 index += 1;
             }
             Some(e) => {
-                if index > 0 && path.as_str() != "/" {
+                if index > 0 {
                     path.push('/');
                 }
                 index += 1;
+                // file system root '/' is recognized as the first element,
+                // should not add it because we will add / before each element:
+                if e == "/" {
+                    continue;
+                }
                 // do not abbreviate last element:
                 if index == count {
                     path.push_str(e);
