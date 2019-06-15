@@ -52,6 +52,12 @@ fn abbreviate_to_length(input_path_str: String, input_length: String) -> Result<
                 // file system root '/' is recognized as the first element,
                 // should not add it because we will add / before each element:
                 if e == "/" {
+                    // '/' will not be added if we are in FS root,
+                    // but we can shortcut it:
+                    if count == 1 {
+                        path.push('/');
+                        break;
+                    }
                     continue;
                 }
                 // do not abbreviate last element:
