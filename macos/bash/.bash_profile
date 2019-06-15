@@ -25,7 +25,7 @@ export GOPATH="$HOME/dev/go"
 # don't print current dir if tmux already has it:
 #export PS1='\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
 # set "title" to current cwd:
-export PS1='\[\033]0;\w\007\]\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
+#export PS1='\[\033]0;\w\007\]\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
 ##                                                                                                                    ^^^^^^^^^^^ non-visible reset colors back to normal
 ##                                                                                                                  ^^ actual visible prompt
 ##                                                                                                               ^^^ end of non-visible output capture
@@ -34,6 +34,8 @@ export PS1='\[\033]0;\w\007\]\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" 
 ##                                ^^^^^^^^^^^^^^^^^ checking previous exit code
 ##                           ^^^^ start of non-visible output capture
 ##          ^^^^^^^^^^^^^^^^^ non-visible set current shell title to cwd
+# tmux-specific, setting title to abbreviated cwd:
+export PS1='\[\033]0;$(abbreviate-cwd-term 5)\007\]\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
 
 # add ~/bin and cargo to PATH:
 export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/bin/google-cloud-sdk/bin:$PATH"
