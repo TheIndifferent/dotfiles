@@ -34,8 +34,8 @@ export GOPATH="$HOME/dev/go"
 ##                                ^^^^^^^^^^^^^^^^^ checking previous exit code
 ##                           ^^^^ start of non-visible output capture
 ##          ^^^^^^^^^^^^^^^^^ non-visible set current shell title to cwd
-# tmux-specific, setting title to abbreviated cwd:
-export PS1='\[\033]0;$(abbreviate-cwd-term 5)\007\]\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
+# setting title to abbreviated cwd:
+export PS1='\[\033]0;$(abbreviate-cwd)\007\]\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
 
 # add ~/bin and cargo to PATH:
 export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/bin/google-cloud-sdk/bin:$PATH"
