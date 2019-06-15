@@ -26,6 +26,14 @@ export GOPATH="$HOME/dev/go"
 #export PS1='\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
 # set "title" to current cwd:
 export PS1='\[\033]0;\w\007\]\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
+##                                                                                                                    ^^^^^^^^^^^ non-visible reset colors back to normal
+##                                                                                                                  ^^ actual visible prompt
+##                                                                                                               ^^^ end of non-visible output capture
+##                                                                                     ^^^^^^^^^^^^^^^^^^^ red prompt if previous command failed
+##                                                         ^^^^^^^^^^^^^^^^^^^^ green prompt if previous command succeeded
+##                                ^^^^^^^^^^^^^^^^^ checking previous exit code
+##                           ^^^^ start of non-visible output capture
+##          ^^^^^^^^^^^^^^^^^ non-visible set current shell title to cwd
 
 # add ~/bin and cargo to PATH:
 export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/bin/google-cloud-sdk/bin:$PATH"
