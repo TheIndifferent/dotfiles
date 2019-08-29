@@ -35,7 +35,11 @@ export GOPATH="$HOME/dev/go"
 ##                           ^^^^ start of non-visible output capture
 ##          ^^^^^^^^^^^^^^^^^ non-visible set current shell title to cwd
 # setting title to abbreviated cwd:
-export PS1='\[\033]0;$(abbreviate-cwd)\007\]\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
+# TODO: this one is broken, feed line will have color of abbreviate-cwd exit code, which is almost always 0:
+#export PS1='\[\033]0;$(abbreviate-cwd)\007\]\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
+#
+# latest iTerm has fantastic status bar, don't need cwd any more:
+export PS1='\[$( if [[ $? -eq 0 ]] ; then echo -n "\033[0;32m" ; else echo -n "\033[0;31m" ; fi )\]❯ \[\033[0m\]'
 
 # add ~/bin and cargo to PATH:
 export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/bin/google-cloud-sdk/bin:$PATH"
