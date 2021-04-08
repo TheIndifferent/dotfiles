@@ -1,9 +1,9 @@
 <scheme name="AWWDC17" version="142" parent_scheme="Darcula">
   <metaInfo>
-    <property name="created">2019-08-12T16:45:34</property>
+    <property name="created">2021-04-08T14:33:29</property>
     <property name="ide">idea</property>
-    <property name="ideVersion">2019.2.0.0</property>
-    <property name="modified">2019-08-13T13:36:48</property>
+    <property name="ideVersion">2021.1.0.0</property>
+    <property name="modified">2021-04-08T14:33:43</property>
     <property name="originalScheme">AWWDC17</property>
   </metaInfo>
   <colors>
@@ -12,7 +12,7 @@
     <option name="CARET_ROW_COLOR" value="41484d" />
     <option name="CONSOLE_BACKGROUND_KEY" value="394045" />
     <option name="DELETED_LINES_COLOR" value="fd978a" />
-    <option name="DOCUMENTATION_COLOR" value="" />
+    <option name="DOCUMENTATION_COLOR" value="31383c" />
     <option name="FOLDED_TEXT_BORDER_COLOR" value="" />
     <option name="GUTTER_BACKGROUND" value="31383c" />
     <option name="INDENT_GUIDE" value="6a6a6a" />
@@ -224,6 +224,17 @@
         <option name="EFFECT_TYPE" value="1" />
       </value>
     </option>
+    <option name="GHERKIN_REGEXP_PARAMETER">
+      <value>
+        <option name="FOREGROUND" value="35c5c6" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
+    <option name="GHERKIN_TABLE_CELL">
+      <value>
+        <option name="FOREGROUND" value="35c5c6" />
+      </value>
+    </option>
     <option name="HYPERLINK_ATTRIBUTES">
       <value>
         <option name="FOREGROUND" value="978afd" />
@@ -233,7 +244,7 @@
     </option>
     <option name="IDENTIFIER_UNDER_CARET_ATTRIBUTES">
       <value>
-        <option name="EFFECT_COLOR" value="978afd" />
+        <option name="EFFECT_COLOR" value="9386f9" />
         <option name="ERROR_STRIPE_COLOR" value="978afd" />
       </value>
     </option>
@@ -261,9 +272,6 @@
         <option name="FOREGROUND" value="bebebe" />
       </value>
     </option>
-    <option name="JAVA_KEYWORD" baseAttributes="DEFAULT_KEYWORD" />
-    <option name="JAVA_VALID_STRING_ESCAPE" baseAttributes="DEFAULT_VALID_STRING_ESCAPE" />
-    <option name="KOTLIN_ANNOTATION" baseAttributes="ANNOTATION_NAME_ATTRIBUTES" />
     <option name="KOTLIN_LABEL" baseAttributes="DEFAULT_LABEL" />
     <option name="KOTLIN_MUTABLE_VARIABLE">
       <value>
@@ -341,8 +349,6 @@
         <option name="EFFECT_TYPE" value="5" />
       </value>
     </option>
-    <option name="PY.KEYWORD" baseAttributes="DEFAULT_KEYWORD" />
-    <option name="PY.KEYWORD_ARGUMENT" baseAttributes="DEFAULT_PARAMETER" />
     <option name="PY.PREDEFINED_DEFINITION">
       <value>
         <option name="FOREGROUND" value="978afd" />
@@ -361,7 +367,6 @@
         <option name="EFFECT_TYPE" value="5" />
       </value>
     </option>
-    <option name="PY.STRING.B" baseAttributes="DEFAULT_STRING" />
     <option name="RUNTIME_ERROR">
       <value>
         <option name="EFFECT_TYPE" value="5" />
